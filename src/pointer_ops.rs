@@ -12,12 +12,12 @@ use crate::alloc::rc::Rc;
 #[cfg(feature = "alloc")]
 use crate::alloc::sync::Arc;
 use crate::UnsafeRef;
-use core::pin::Pin;
+use alloc::alloc::Global;
 use core::alloc::Allocator;
 use core::marker::PhantomData;
 use core::mem::ManuallyDrop;
 use core::ops::Deref;
-use alloc::alloc::Global;
+use core::pin::Pin;
 
 /// Trait for pointer conversion operations.
 ///
