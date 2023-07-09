@@ -615,6 +615,22 @@ where
         Some(unsafe { &*self.list.adapter.get_value(self.current?) })
     }
 
+    /// Returns a mut reference to the object that the cursor is currently
+    /// pointing to.
+    ///
+    /// This returns None if the cursor is currently pointing to the null
+    /// object.
+    ///
+    /// # Safety
+    /// The pointing object has and merely has one link.
+    #[inline]
+    pub unsafe fn get_mut(&mut self) -> Option<&mut <A::PointerOps as PointerOps>::Value> {
+        Some(unsafe {
+            &mut *(self.list.adapter.get_value(self.current?)
+                as *mut <A::PointerOps as PointerOps>::Value)
+        })
+    }
+
     /// Returns a read-only cursor pointing to the current element.
     ///
     /// The lifetime of the returned `Cursor` is bound to that of the
