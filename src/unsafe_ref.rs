@@ -9,7 +9,7 @@
 use crate::alloc::boxed::Box;
 use core::borrow::Borrow;
 use core::fmt;
-use core::ops::Deref;
+use core::ops::{Deref, DerefMut};
 use core::ptr::NonNull;
 
 /// Unchecked shared pointer
@@ -80,6 +80,13 @@ impl<T: ?Sized> Deref for UnsafeRef<T> {
     #[inline]
     fn deref(&self) -> &T {
         self.as_ref()
+    }
+}
+
+impl<T: ?Sized> DerefMut for UnsafeRef<T> {
+    #[inline]
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe { self.ptr.as_mut() }
     }
 }
 
