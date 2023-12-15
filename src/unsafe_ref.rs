@@ -97,6 +97,13 @@ impl<T: ?Sized> AsRef<T> for UnsafeRef<T> {
     }
 }
 
+impl<T: ?Sized> AsMut<T> for UnsafeRef<T> {
+    #[inline]
+    fn as_mut(&mut self) -> &mut T {
+        unsafe { self.ptr.as_mut() }
+    }
+}
+
 impl<T: ?Sized> Borrow<T> for UnsafeRef<T> {
     #[inline]
     fn borrow(&self) -> &T {
